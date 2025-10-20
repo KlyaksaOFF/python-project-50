@@ -29,6 +29,9 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-            SONAR_PROJECT_KEY: "python_project_${{ github.repository }}"
-            SONAR_ORGANIZATION: "KlyaksaOFF"
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=hexlet-boilerplates_python-package
+            -Dsonar.organization=hexlet-boilerplates
+            -Dsonar.python.coverage.reportPaths=coverage.xml
