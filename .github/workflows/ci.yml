@@ -9,26 +9,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-        # make depends on uv
+
       - name: Install dependencies
         run: |
           pip install uv
           make install
+
       - name: Run linter and pytest
         run: |
           make lint
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: SonarQubeScan
-        uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=hexlet-boilerplates_python-package
-            -Dsonar.organization=hexlet-boilerplates
-            -Dsonar.python.coverage.reportPaths=coverage.xml
