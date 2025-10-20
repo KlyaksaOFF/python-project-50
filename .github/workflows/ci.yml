@@ -28,8 +28,7 @@ jobs:
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
-        with:
-          sonar-project-key: "python_project_${{ github.repository }}"
-          sonar-organization: "KlyaksaOFF"
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+            SONAR_PROJECT_KEY: "python_project_${{ github.repository }}"
+            SONAR_ORGANIZATION: "KlyaksaOFF"
