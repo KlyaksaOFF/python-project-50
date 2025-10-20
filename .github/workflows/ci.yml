@@ -1,32 +1,25 @@
-name: CI
+name: Python CI
 
-on: [push, pull_request]
+on:
+  - push
+  - pull_request
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-
-      - name: Install uv
-        run: pip install uv
-
+        # make depends on uv
       - name: Install dependencies
-        run: uv sync --dev
-      - name: Install ruff
-        run: pip install ruff
-      - name: Lint
-        run: ruff check .
-
-      - name: Test with coverage
-        run: pytest tests/ --cov=gendiff --cov-report=xml
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        run: |
+          pip install uv
+          make install
+      - name: Run linter and pytest
+        run: |
+          make check
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
