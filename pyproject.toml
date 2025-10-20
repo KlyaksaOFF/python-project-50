@@ -17,6 +17,7 @@ packages = ["gendiff"]
 
 [dependency-groups]
 dev = [
+    "coverage>=7.11.0",
     "pytest>=8.4.2",
     "pytest-cov>=7.0.0",
     "ruff>=0.14.1",
