@@ -12,6 +12,8 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: uv sync --dev
+      - name: Lint
+        run: uv run ruff check .
       - run: make lint
       - run: uv run pytest tests/ --cov=gendiff --cov-report=xml
       - name: SonarCloud Scan
