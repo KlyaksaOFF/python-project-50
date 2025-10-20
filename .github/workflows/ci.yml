@@ -1,21 +1,29 @@
 name: CI
+
 on: [push, pull_request]
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install uv
-        uses: astral-sh/setup-uv@v1
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+
+      - name: Install uv
+        run: pip install uv
+
       - name: Install dependencies
         run: uv sync --dev
+
       - name: Lint
-        run: uv run ruff check .
-      - run: make lint
-      - run: uv run pytest tests/ --cov=gendiff --cov-report=xml
+        run: ruff check .
+
+      - name: Test with coverage
+        run: pytest tests/ --cov=gendiff --cov-report=xml
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
