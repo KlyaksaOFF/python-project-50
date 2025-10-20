@@ -20,6 +20,6 @@ jobs:
           make install
       - name: Run linter and pytest
         run: |
-          make check
+          make lint
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
