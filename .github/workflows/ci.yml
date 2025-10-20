@@ -25,7 +25,7 @@ jobs:
       - name: Run linter and pytest
         run: |
           make lint
-
+          python -m pytest tests/ -v --cov=gendiff --cov-report=xml
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
