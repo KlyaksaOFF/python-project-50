@@ -9,13 +9,19 @@ expected = """{
   + verbose: True
 }"""
 
+
 def test_gendiff():
-	json = generate_diff("tests/test_data/file1.json", "tests/test_data/file2.json")
-	ymal = generate_diff("tests/test_data/file1.yaml", "tests/test_data/file2.yaml")
+	json = generate_diff("tests/test_data/file1.json",
+	"tests/test_data/file2.json")
+
+	ymal = generate_diff("tests/test_data/file1.yaml",
+	"tests/test_data/file2.yaml")
+
 	assert json == expected
 	assert ymal == expected
 
 
 def test_mix_format():
-	mix = generate_diff("tests/test_data/file1.yaml", "tests/test_data/file2.json")
+	mix = generate_diff("tests/test_data/file1.yaml",
+	"tests/test_data/file2.json")
 	assert mix == expected
