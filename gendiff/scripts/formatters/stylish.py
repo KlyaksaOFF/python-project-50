@@ -13,10 +13,12 @@ def format_stylish(ast, depth=0):
             nested = format_stylish(node['children'], depth + 2)
             lines.append(f"{indent}    {key}: {nested}")
         elif node_type == 'added':
-            value = format_node_value(node['value'], depth, is_added_removed=True)
+            value = format_node_value(node['value'],
+			depth, is_added_removed=True)
             lines.append(f"{indent}  + {key}: {value}")
         elif node_type == 'removed':
-            value = format_node_value(node['value'], depth, is_added_removed=True)
+            value = format_node_value(node['value'],
+			depth, is_added_removed=True)
             lines.append(f"{indent}  - {key}: {value}")
         elif node_type == 'changed':
             old_val = format_node_value(node['old_value'], depth)
