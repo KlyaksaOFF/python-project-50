@@ -1,23 +1,14 @@
+from gendiff.scripts.ast import build_ast
+from gendiff.scripts.formatters.stylish import format_stylish
 from gendiff.scripts.parse import parse_file
 
 
-def generate_diff(file_path1, file_path2):
+def generate_diff(file_path1, file_path2, format_name='stylish'):
 	file1 = parse_file(file_path1)
 	file2 = parse_file(file_path2)
+	ast = build_ast(file1, file2)
 
-	lines = []
-	all_keys = sorted(set(file1.keys()) | set(file2.keys()))
+	if format_name == 'stylish':
+		return format_stylish(ast)
 
-	for key in all_keys:
-		if key not in file2:
-			lines.append(f"  - {key}: {file1[key]}")
-		elif key not in file1:
-			lines.append(f"  + {key}: {file2[key]}")
-		elif file1[key] != file2[key]:
-			lines.append(f"  - {key}: {file1[key]}")
-			lines.append(f"  + {key}: {file2[key]}")
-		else:
-			lines.append(f"    {key}: {file1[key]}")
-	result = "{\n" + "\n".join(lines) + "\n}"
-	return result
-
+	return format_stylish(ast)
