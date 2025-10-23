@@ -10,13 +10,15 @@ def format_plain(ast, path=""):
 			lines.extend(nested_lines)
 		elif node_type == 'added':
 			value = format_value_plain(node['value'])
-			lines.append(f"Property '{current_path}' was added with value: {value}")
+			lines.append(f"Property '{current_path}' "
+			f"was added with value: {value}")
 		elif node_type == 'removed':
 			lines.append(f"Property '{current_path}' was removed")
 		elif node_type == 'changed':
 			old_value = format_value_plain(node['old_value'])
 			new_value = format_value_plain(node['new_value'])
-			lines.append(f"Property '{current_path}' was updated. From {old_value} to {new_value}")
+			lines.append(f"Property '{current_path}' was updated. "
+			f"From {old_value} to {new_value}")
 
 	return lines
 

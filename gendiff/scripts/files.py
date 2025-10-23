@@ -1,7 +1,8 @@
 from gendiff.scripts.ast import build_ast
+from gendiff.scripts.formatters.plain import format_plain
 from gendiff.scripts.formatters.stylish import format_stylish
 from gendiff.scripts.parse import parse_file
-from gendiff.scripts.formatters.plain import format_plain
+
 
 def generate_diff(file_path1, file_path2, format_name='stylish'):
     file1 = parse_file(file_path1)
