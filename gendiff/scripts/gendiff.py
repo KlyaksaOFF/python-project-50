@@ -12,9 +12,9 @@ def main():
     parser.add_argument('second_file')
     parser.add_argument('-f', '--format', help='set format of output')
     args = parser.parse_args()
-    diff = generate_diff(args.first_file, args.second_file)
+    format_name = args.format if args.format else 'stylish'
+    diff = generate_diff(args.first_file, args.second_file, format_name)
     print(diff)
-    print()
 
 
 if __name__ == '__main__':
