@@ -1,3 +1,5 @@
+import json
+
 from gendiff.scripts.gendiff import generate_diff
 
 expected = """{
@@ -56,6 +58,7 @@ expected_children = """{
 
 
 def test_gendiff():
+
 	json = generate_diff("tests/test_data/file1.json",
 	"tests/test_data/file2.json")
 
@@ -93,3 +96,21 @@ Property 'group2' was removed
 Property 'group3' was added with value: [complex value]"""
 
 	assert result == expected1
+
+
+def test_json_format():
+	result = generate_diff(
+		"tests/test_data/file1.json",
+		"tests/test_data/file2.json",
+		'json'
+	)
+
+	parsed = json.loads(result)
+	assert isinstance(parsed, list)
+
+	first_node = parsed[0]
+	assert 'key' in first_node
+	assert 'type' in first_node
+	assert first_node['key'] == 'common'
+	assert first_node['type'] == 'nested'
+	assert 'children' in first_node
