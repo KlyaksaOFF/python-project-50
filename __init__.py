@@ -1,0 +1,1 @@
+from gendiff.scripts.files import generate_diff

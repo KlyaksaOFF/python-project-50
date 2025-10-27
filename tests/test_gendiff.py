@@ -1,6 +1,6 @@
 import json
 
-from gendiff.scripts.gendiff import generate_diff
+from gendiff import generate_diff
 
 expected = """{
   - follow: false
