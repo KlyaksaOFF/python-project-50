@@ -1,4 +1,4 @@
-def build_ast(data1, data2):
+def build_diff(data1, data2):
 	ast = []
 	all_keys = sorted(set(data1.keys()) | set(data2.keys()))
 
@@ -13,7 +13,7 @@ def build_ast(data1, data2):
 			ast.append({'key': key, 'type': 'added', 'value': value2})
 
 		elif isinstance(value1, dict) and isinstance(value2, dict):
-			children = build_ast(value1, value2)
+			children = build_diff(value1, value2)
 			ast.append({'key': key, 'type': 'nested', 'children': children})
 
 		elif value1 != value2:
